@@ -33,6 +33,12 @@ namespace Toggl.QueryObjects
         [JsonProperty(PropertyName = "user_ids")]
         public List<int> UserIds { get; set; }
 
+		[JsonProperty(PropertyName = "members_of_group_ids")]
+		public List<int> MembersOfGroupIds { get; set; }
+
+		[JsonProperty(PropertyName = "or_members_of_group_ids")]
+		public List<int> OrMembersOfGroupIds { get; set; }
+
         [JsonProperty(PropertyName = "tag_ids")]
         public List<int> TagIds { get; set; }
 
@@ -47,6 +53,27 @@ namespace Toggl.QueryObjects
 
         [JsonProperty(PropertyName = "without_description")]
         public bool? WithoutDescription { get; set; }
-       
-    }
+
+		[JsonProperty(PropertyName = "order_field")]
+		public string OrderField { get; set; }
+		//For detailed reports: "date", "description", "duration", or "user"
+		//For summary reports: "title", "duration", or "amount"
+		//For weekly reports: "title", "day1", "day2", "day3", "day4", "day5", "day6", "day7", or "week_total"
+
+        [JsonProperty(PropertyName = "order_desc")]
+	    public string OrderDesc { get; set; }
+		//"on" for descending, or "off" for ascending order.
+
+        [JsonProperty(PropertyName = "distinct_rates")]
+		public string DistinctRates { get; set; }
+		//: "on" or "off". Defaults to "off".
+
+		[JsonProperty(PropertyName = "rounding")]
+		public string Rounding { get; set; }
+		//rounding: "on" or "off". Defaults to "off". Rounds time according to workspace settings.
+
+		[JsonProperty(PropertyName = "display_hours")]
+        public string DisplayHours { get; set; }
+
+	}
 }
