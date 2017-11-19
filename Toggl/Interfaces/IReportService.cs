@@ -9,7 +9,7 @@ namespace Toggl.Interfaces
 {
     public interface IReportService
     {
-        IApiService ToggleSrv { get; set; }
+        IApiService TogglSrv { get; set; }
 
         DetailedReport Detailed(DetailedReportParams requestParameters);
     }

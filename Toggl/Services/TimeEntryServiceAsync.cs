@@ -9,7 +9,7 @@ namespace Toggl.Services
 
 	public class TimeEntryServiceAsync : ITimeEntryServiceAsync
     {
-        private IApiServiceAsync ToggleSrv { get; set; }
+        private IApiServiceAsync TogglSrv { get; set; }
 
         public TimeEntryServiceAsync(string apiKey)
             : this(new ApiServiceAsync(apiKey))
@@ -19,7 +19,7 @@ namespace Toggl.Services
         
         public TimeEntryServiceAsync(IApiServiceAsync srv)
         {
-            ToggleSrv = srv;
+            TogglSrv = srv;
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace Toggl.Services
         /// <returns></returns>
         public async System.Threading.Tasks.Task<List<TimeEntry>> List(QueryObjects.TimeEntryParams obj)
         {
-            var response = await ToggleSrv.Get(ApiRoutes.TimeEntry.TimeEntriesUrl, obj.GetParameters());
+            var response = await TogglSrv.Get(ApiRoutes.TimeEntry.TimeEntriesUrl, obj.GetParameters());
             var entries = response
                         .GetData<List<TimeEntry>>()
                         .AsQueryable();
@@ -65,7 +65,7 @@ namespace Toggl.Services
         {
             var url = ApiRoutes.TimeEntry.TimeEntryCurrentUrl;
 
-            var response = await ToggleSrv.Get(url);
+            var response = await TogglSrv.Get(url);
             var timeEntry = response.GetData<TimeEntry>();
 
             return timeEntry;
@@ -81,7 +81,7 @@ namespace Toggl.Services
         {
             var url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id);
 
-            var response = await ToggleSrv.Get(url);
+            var response = await TogglSrv.Get(url);
             var timeEntry = response.GetData<TimeEntry>();
 
             return timeEntry;
@@ -97,7 +97,7 @@ namespace Toggl.Services
         {
             var url = ApiRoutes.TimeEntry.TimeEntriesUrl;
 
-            var response = await ToggleSrv.Post(url, obj.ToJson());
+            var response = await TogglSrv.Post(url, obj.ToJson());
             var timeEntry = response.GetData<TimeEntry>();
 
             return timeEntry;
@@ -112,7 +112,7 @@ namespace Toggl.Services
         {
             var url = ApiRoutes.TimeEntry.TimeEntryStartUrl;
 
-            var response = await ToggleSrv.Post(url, obj.ToJson());
+            var response = await TogglSrv.Post(url, obj.ToJson());
             var timeEntry = response.GetData<TimeEntry>();
 
             return timeEntry;
@@ -127,7 +127,7 @@ namespace Toggl.Services
         {
             var url = string.Format(ApiRoutes.TimeEntry.TimeEntryStopUrl, obj.Id);
 
-            var response = await ToggleSrv.Put(url, obj.ToJson());
+            var response = await TogglSrv.Put(url, obj.ToJson());
             var timeEntry = response.GetData<TimeEntry>();
 
             return timeEntry;
@@ -142,7 +142,7 @@ namespace Toggl.Services
         {
             var url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, obj.Id);
 
-            var response = await ToggleSrv.Put(url, obj.ToJson());
+            var response = await TogglSrv.Put(url, obj.ToJson());
             var timeEntry = response.GetData<TimeEntry>();
 
             return timeEntry;
@@ -158,7 +158,7 @@ namespace Toggl.Services
         {
 			var url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id);
 
-            var rsp = await ToggleSrv.Delete(url);
+            var rsp = await TogglSrv.Delete(url);
 
             return rsp.StatusCode == HttpStatusCode.OK;
         }

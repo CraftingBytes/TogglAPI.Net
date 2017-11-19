@@ -10,7 +10,7 @@ namespace Toggl.Services
 
 	public class TimeEntryService : ITimeEntryService
     {
-        private IApiService ToggleSrv { get; set; }
+        private IApiService TogglSrv { get; set; }
 
         public TimeEntryService(string apiKey)
             : this(new ApiService(apiKey))
@@ -20,7 +20,7 @@ namespace Toggl.Services
         
         public TimeEntryService(IApiService srv)
         {
-            ToggleSrv = srv;
+            TogglSrv = srv;
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Toggl.Services
         /// <returns></returns>
         public List<TimeEntry> List(QueryObjects.TimeEntryParams obj)
         {
-            var entries = ToggleSrv.Get(ApiRoutes.TimeEntry.TimeEntriesUrl, obj.GetParameters())
+            var entries = TogglSrv.Get(ApiRoutes.TimeEntry.TimeEntriesUrl, obj.GetParameters())
                         .GetData<List<TimeEntry>>()
                         .AsQueryable();
             
@@ -65,7 +65,7 @@ namespace Toggl.Services
         {
             var url = ApiRoutes.TimeEntry.TimeEntryCurrentUrl;
 
-            var timeEntry = ToggleSrv.Get(url).GetData<TimeEntry>();
+            var timeEntry = TogglSrv.Get(url).GetData<TimeEntry>();
 
             return timeEntry;
         }
@@ -80,7 +80,7 @@ namespace Toggl.Services
         {
             var url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id);
             
-            var timeEntry = ToggleSrv.Get(url).GetData<TimeEntry>();
+            var timeEntry = TogglSrv.Get(url).GetData<TimeEntry>();
 
             return timeEntry;
         }
@@ -95,7 +95,7 @@ namespace Toggl.Services
         {
             var url = ApiRoutes.TimeEntry.TimeEntriesUrl;
 
-            var timeEntry = ToggleSrv.Post(url, obj.ToJson()).GetData<TimeEntry>();
+            var timeEntry = TogglSrv.Post(url, obj.ToJson()).GetData<TimeEntry>();
 
             return timeEntry;
         }
@@ -109,7 +109,7 @@ namespace Toggl.Services
 		{
             var url = ApiRoutes.TimeEntry.TimeEntryStartUrl;
 
-            var timeEntry = ToggleSrv.Post(url, obj.ToJson()).GetData<TimeEntry>();
+            var timeEntry = TogglSrv.Post(url, obj.ToJson()).GetData<TimeEntry>();
 
             return timeEntry;
 		}
@@ -123,7 +123,7 @@ namespace Toggl.Services
 		{
             var url = string.Format(ApiRoutes.TimeEntry.TimeEntryStopUrl, obj.Id);
 
-            var timeEntry = ToggleSrv.Put(url, obj.ToJson()).GetData<TimeEntry>();
+            var timeEntry = TogglSrv.Put(url, obj.ToJson()).GetData<TimeEntry>();
 
             return timeEntry;
 		}
@@ -137,7 +137,7 @@ namespace Toggl.Services
         {
             var url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, obj.Id);
 
-            var timeEntry = ToggleSrv.Put(url, obj.ToJson()).GetData<TimeEntry>();
+            var timeEntry = TogglSrv.Put(url, obj.ToJson()).GetData<TimeEntry>();
 
             return timeEntry;
         }
@@ -152,7 +152,7 @@ namespace Toggl.Services
         {
 			var url = string.Format(ApiRoutes.TimeEntry.TimeEntryUrl, id);
 
-            var rsp = ToggleSrv.Delete(url);
+            var rsp = TogglSrv.Delete(url);
 
             return rsp.StatusCode == HttpStatusCode.OK;
         }

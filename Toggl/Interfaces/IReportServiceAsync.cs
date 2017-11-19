@@ -10,7 +10,7 @@ namespace Toggl.Interfaces
 {
     public interface IReportServiceAsync
     {
-        IApiServiceAsync ToggleSrv { get; set; }
+        IApiServiceAsync TogglSrv { get; set; }
 
         Task<DetailedReport> Detailed(DetailedReportParams requestParameters);
     }

@@ -11,7 +11,7 @@ namespace Toggl.Services
 {
     public class TagService : ITagService
     {
-        private IApiService ToggleSrv { get; set; }
+        private IApiService TogglSrv { get; set; }
 
 
         public TagService(string apiKey)
@@ -22,7 +22,7 @@ namespace Toggl.Services
 
         public TagService(IApiService srv)
         {
-            ToggleSrv = srv;
+            TogglSrv = srv;
         }
 
         /// <summary>

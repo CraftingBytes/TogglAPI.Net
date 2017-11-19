@@ -9,7 +9,7 @@ namespace Toggl.Interfaces
 {
     public interface IDashboardService
     {
-        IApiService ToggleSrv { get; set; }
+        IApiService TogglSrv { get; set; }
 
         Dashboard Get(int workspaceID);
     }

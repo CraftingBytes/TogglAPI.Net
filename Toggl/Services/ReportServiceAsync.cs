@@ -6,7 +6,7 @@ namespace Toggl.Services
 {
     public class ReportServiceAsync : IReportServiceAsync
     {
-        public IApiServiceAsync ToggleSrv { get; set; }
+        public IApiServiceAsync TogglSrv { get; set; }
         
 
 	    public ReportServiceAsync(string apiKey)
@@ -17,13 +17,13 @@ namespace Toggl.Services
         
         public ReportServiceAsync(IApiServiceAsync srv)
         {
-            ToggleSrv = srv;
+            TogglSrv = srv;
         }
 
 
         public async System.Threading.Tasks.Task<DetailedReport> Detailed(DetailedReportParams requestParameters)
         {
-            var report = await ToggleSrv.Get<DetailedReport>(ApiRoutes.Reports.Detailed, requestParameters.ToKeyValuePair());
+            var report = await TogglSrv.Get<DetailedReport>(ApiRoutes.Reports.Detailed, requestParameters.ToKeyValuePair());
             return report;
         }
 

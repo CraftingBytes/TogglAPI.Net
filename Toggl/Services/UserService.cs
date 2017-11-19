@@ -13,7 +13,7 @@ namespace Toggl.Services
     public class UserService : IUserService
     {
         
-        private IApiService ToggleSrv { get; set; }
+        private IApiService TogglSrv { get; set; }
 
 
         public UserService(string apiKey)
@@ -24,7 +24,7 @@ namespace Toggl.Services
 
         public UserService(IApiService srv)
         {
-            ToggleSrv = srv;
+            TogglSrv = srv;
         }
 
         
@@ -32,7 +32,7 @@ namespace Toggl.Services
         {
             var url = ApiRoutes.User.CurrentUrl;
 
-            var obj = ToggleSrv.Get(url).GetData<User>();
+            var obj = TogglSrv.Get(url).GetData<User>();
 
             return obj;
         }
@@ -41,7 +41,7 @@ namespace Toggl.Services
         {
             var url = ApiRoutes.User.CurrentExtendedUrl;
 
-            var obj = ToggleSrv.Get(url).GetData<UserExtended>();
+            var obj = TogglSrv.Get(url).GetData<UserExtended>();
 
             return obj;
         }
@@ -50,7 +50,7 @@ namespace Toggl.Services
         {
             var url = string.Format(ApiRoutes.User.CurrentSinceUrl, since.ToUnixTime());
 
-            var obj = ToggleSrv.Get(url).GetData<UserExtended>();
+            var obj = TogglSrv.Get(url).GetData<UserExtended>();
 
             return obj;
         }
@@ -60,7 +60,7 @@ namespace Toggl.Services
             var url = string.Format(ApiRoutes.User.EditUrl);
             var data = u.ToJson();
             
-            u = ToggleSrv.Put(url, data).GetData<User>();
+            u = TogglSrv.Put(url, data).GetData<User>();
             
             return u;
         }
@@ -69,7 +69,7 @@ namespace Toggl.Services
         {
             var url = ApiRoutes.User.ResetApiTokenUrl;
 
-            var apiToken = ToggleSrv.Post(url, null).GetData<string>();
+            var apiToken = TogglSrv.Post(url, null).GetData<string>();
 
             return apiToken;
         }
@@ -77,7 +77,7 @@ namespace Toggl.Services
         public List<User> GetForWorkspace(int id)
         {
             var url = string.Format(ApiRoutes.Workspace.ListWorkspaceUsersUrl, id);
-            return ToggleSrv.Get(url).GetData<List<User>>();
+            return TogglSrv.Get(url).GetData<List<User>>();
         }
 
         public User Add(User u)
@@ -85,7 +85,7 @@ namespace Toggl.Services
             var url = string.Format(ApiRoutes.User.AddUrl);
             var data = u.ToJson();
 
-            u = ToggleSrv.Post(url, data).GetData<User>();
+            u = TogglSrv.Post(url, data).GetData<User>();
 
             return u;
         }

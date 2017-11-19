@@ -21,7 +21,7 @@ namespace Toggl.Services
 				List();
 		}
 
-		public IApiService ToggleSrv { get; set; }
+		public IApiService TogglSrv { get; set; }
 		
         public ClientService(string apiKey)
             : this(new ApiService(apiKey))
@@ -31,7 +31,7 @@ namespace Toggl.Services
 
 		public ClientService(IApiService srv)
         {
-            ToggleSrv = srv;
+            TogglSrv = srv;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Toggl.Services
         /// <returns></returns>
         public List<Client> List(bool includeDeleted = false)
         {
-	        var result = ToggleSrv.Get(ApiRoutes.Client.ClientsUrl).GetData<List<Client>>();
+	        var result = TogglSrv.Get(ApiRoutes.Client.ClientsUrl).GetData<List<Client>>();
 
 	        cachedClients = result.ToDictionary(client => client.Id.Value, client => client);
 
@@ -55,7 +55,7 @@ namespace Toggl.Services
 		        return cachedClients[id];
 
 			var url = string.Format(ApiRoutes.Client.ClientUrl, id);
-            return ToggleSrv.Get(url).GetData<Client>();
+            return TogglSrv.Get(url).GetData<Client>();
             
         }
 
@@ -77,7 +77,7 @@ namespace Toggl.Services
         {
 	        cachedClients = null;
             var url = ApiRoutes.Client.ClientsUrl;
-            return ToggleSrv.Post(url, obj.ToJson()).GetData<Client>();
+            return TogglSrv.Post(url, obj.ToJson()).GetData<Client>();
 
         }
         
@@ -91,7 +91,7 @@ namespace Toggl.Services
         {
 	        cachedClients = null;
             var url = string.Format(ApiRoutes.Client.ClientUrl, obj.Id);
-            return ToggleSrv.Put(url, obj.ToJson()).GetData<Client>();
+            return TogglSrv.Put(url, obj.ToJson()).GetData<Client>();
 
         }
 
@@ -105,7 +105,7 @@ namespace Toggl.Services
         {
 	        cachedClients = null;
             var url = string.Format(ApiRoutes.Client.ClientUrl, id);
-            var res = ToggleSrv.Delete(url);
+            var res = TogglSrv.Delete(url);
             return (res.StatusCode==HttpStatusCode.OK);
         }
 

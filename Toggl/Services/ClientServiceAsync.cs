@@ -21,7 +21,7 @@ namespace Toggl.Services
 				await List();
 		}
 
-		public IApiServiceAsync ToggleSrv { get; set; }
+		public IApiServiceAsync TogglSrv { get; set; }
 		
         public ClientServiceAsync(string apiKey)
             : this(new ApiServiceAsync(apiKey))
@@ -31,7 +31,7 @@ namespace Toggl.Services
 
 		public ClientServiceAsync(IApiServiceAsync srv)
         {
-            ToggleSrv = srv;
+            TogglSrv = srv;
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace Toggl.Services
         /// <returns></returns>
         public async System.Threading.Tasks.Task<List<Client>> List(bool includeDeleted = false)
         {
-            var response = await ToggleSrv.Get(ApiRoutes.Client.ClientsUrl);
+            var response = await TogglSrv.Get(ApiRoutes.Client.ClientsUrl);
 	        var result = response.GetData<List<Client>>();
 
 	        cachedClients = result.ToDictionary(client => client.Id.Value, client => client);
@@ -57,7 +57,7 @@ namespace Toggl.Services
 		        return cachedClients[id];
 
 			var url = string.Format(ApiRoutes.Client.ClientUrl, id);
-            var response = await ToggleSrv.Get(url);
+            var response = await TogglSrv.Get(url);
             var data = response.GetData<Client>();
             return data;
             
@@ -82,7 +82,7 @@ namespace Toggl.Services
         {
 	        cachedClients = null;
             var url = ApiRoutes.Client.ClientsUrl;
-            var response = await ToggleSrv.Post(url, obj.ToJson());
+            var response = await TogglSrv.Post(url, obj.ToJson());
             var data = response.GetData<Client>();
             return data;
 
@@ -98,7 +98,7 @@ namespace Toggl.Services
         {
 	        cachedClients = null;
             var url = string.Format(ApiRoutes.Client.ClientUrl, obj.Id);
-            var response = await ToggleSrv.Put(url, obj.ToJson());
+            var response = await TogglSrv.Put(url, obj.ToJson());
             var data = response.GetData<Client>();
             return data;
         }
@@ -113,7 +113,7 @@ namespace Toggl.Services
         {
 	        cachedClients = null;
             var url = string.Format(ApiRoutes.Client.ClientUrl, id);
-            var res = await ToggleSrv.Delete(url);
+            var res = await TogglSrv.Delete(url);
             return (res.StatusCode == HttpStatusCode.OK);
         }
 

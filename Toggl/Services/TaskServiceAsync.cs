@@ -15,7 +15,7 @@ namespace Toggl.Services
     {
         private readonly string TogglTasksUrl = ApiRoutes.Task.TogglTasksUrl;
 
-        private IApiServiceAsync ToggleSrv { get; set; }
+        private IApiServiceAsync TogglSrv { get; set; }
 
         public TaskServiceAsync(string apiKey)
             : this(new ApiServiceAsync(apiKey))
@@ -25,14 +25,14 @@ namespace Toggl.Services
 
         public TaskServiceAsync(IApiServiceAsync srv)
         {
-            ToggleSrv = srv;
+            TogglSrv = srv;
         }
 
 
         public async System.Threading.Tasks.Task<Task> Get(int id)
         {
 	        var url = string.Format(ApiRoutes.Task.TogglTasksGet, id);
-            var response = await ToggleSrv.Get(url);
+            var response = await TogglSrv.Get(url);
             var data = response.GetData<Task>();
 			return data;
         }
@@ -45,7 +45,7 @@ namespace Toggl.Services
         /// <returns></returns>
         public async System.Threading.Tasks.Task<Task> Add(Task t)
         {
-            var response = await ToggleSrv.Post(TogglTasksUrl, t.ToJson());
+            var response = await TogglSrv.Post(TogglTasksUrl, t.ToJson());
             var data = response.GetData<Task>();
             return data;
         }
@@ -59,7 +59,7 @@ namespace Toggl.Services
         public async System.Threading.Tasks.Task<Task> Edit(Task t)
         {
 			var url = string.Format(ApiRoutes.Task.TogglTasksGet, t.Id);
-            var response = await ToggleSrv.Put(url, t.ToJson());
+            var response = await TogglSrv.Put(url, t.ToJson());
             var data = response.GetData<Task>();
 			return data;
         }
@@ -74,7 +74,7 @@ namespace Toggl.Services
         {
 			var url = string.Format(ApiRoutes.Task.TogglTasksGet, id);
 
-			var rsp = await ToggleSrv.Delete(url);
+			var rsp = await TogglSrv.Delete(url);
 
 			return rsp.StatusCode == HttpStatusCode.OK;            
         }
@@ -95,7 +95,7 @@ namespace Toggl.Services
 			    ApiRoutes.Task.TogglTasksGet,
 			    string.Join(",", ids.Select(id => id.ToString()).ToArray()));
 
-		    var rsp = await ToggleSrv.Delete(url);
+		    var rsp = await TogglSrv.Delete(url);
 
 		    return rsp.StatusCode == HttpStatusCode.OK;
 	    }
@@ -123,7 +123,7 @@ namespace Toggl.Services
         public async System.Threading.Tasks.Task<List<Task>> ForProject(int id)
         {
             var url = string.Format(ApiRoutes.Project.ProjectTasksUrl, id);
-            var response = await ToggleSrv.Get(url);
+            var response = await TogglSrv.Get(url);
             var data = response.GetData<List<Task>>();
             return data;
         }
@@ -149,8 +149,8 @@ namespace Toggl.Services
 
         public async System.Threading.Tasks.Task Merge(int masterTaskId, int slaveTaskId, int workspaceId, string userAgent = "TogglAPI.Net")
 	    {
-		    var reportService = new ReportServiceAsync(this.ToggleSrv);
-		    var timeEntryService = new TimeEntryServiceAsync(this.ToggleSrv);
+		    var reportService = new ReportServiceAsync(this.TogglSrv);
+		    var timeEntryService = new TimeEntryServiceAsync(this.TogglSrv);
 
 			var reportParams = new DetailedReportParams()
 								{
@@ -185,8 +185,8 @@ namespace Toggl.Services
 
         public async System.Threading.Tasks.Task Merge(int masterTaskId, int[] slaveTasksIds, int workspaceId, string userAgent = "TogglAPI.Net")
 		{
-			var reportService = new ReportServiceAsync(this.ToggleSrv);
-			var timeEntryService = new TimeEntryServiceAsync(this.ToggleSrv);
+			var reportService = new ReportServiceAsync(this.TogglSrv);
+			var timeEntryService = new TimeEntryServiceAsync(this.TogglSrv);
 
 			var reportParams = new DetailedReportParams()
 			{

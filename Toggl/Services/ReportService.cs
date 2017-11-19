@@ -6,22 +6,22 @@ namespace Toggl.Services
 {
 	public class ReportService : IReportService
 	{
-		public IApiService ToggleSrv { get; set; }
+		public IApiService TogglSrv { get; set; }
 		public DetailedReport Detailed(DetailedReportParams requestParameters)
 		{
-			var report = ToggleSrv.Get<DetailedReport>(ApiRoutes.Reports.Detailed, requestParameters.ToKeyValuePair());
+			var report = TogglSrv.Get<DetailedReport>(ApiRoutes.Reports.Detailed, requestParameters.ToKeyValuePair());
 			return report;
 		}
 
 		public SummaryReport Summary(SummaryReportParams requestParameters)
 		{
-			var report = ToggleSrv.Get<SummaryReport>(ApiRoutes.Reports.Summary, requestParameters.ToKeyValuePair());
+			var report = TogglSrv.Get<SummaryReport>(ApiRoutes.Reports.Summary, requestParameters.ToKeyValuePair());
 			return report;
 		}
 
 		public WeeklyReport Weekly(WeeklyReportParams requestParameters)
 		{
-			var report = ToggleSrv.Get<WeeklyReport>(ApiRoutes.Reports.Weekly, requestParameters.ToKeyValuePair());
+			var report = TogglSrv.Get<WeeklyReport>(ApiRoutes.Reports.Weekly, requestParameters.ToKeyValuePair());
 			return report;
 		}
 
@@ -62,7 +62,7 @@ namespace Toggl.Services
 
 		public ReportService(IApiService srv)
 		{
-			ToggleSrv = srv;
+			TogglSrv = srv;
 		}
 	}
 }

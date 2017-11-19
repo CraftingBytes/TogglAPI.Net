@@ -13,7 +13,7 @@ namespace Toggl
     /// "api_token": "2d1d95cef10e17831ec505e9e6f9f7ea",
     /// "default_wid": 303523,
     /// "email": "toggle@infocss.com",
-    /// "fullname": "Toggle",
+    /// "fullname": "Toggl",
     /// "jquery_timeofday_format": "h:i A",
     /// "jquery_date_format": "m/d/Y",
     /// "timeofday_format": "h:mm A",

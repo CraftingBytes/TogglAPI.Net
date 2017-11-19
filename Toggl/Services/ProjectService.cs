@@ -14,7 +14,7 @@ namespace Toggl.Services
         private readonly string ProjectsUrl = ApiRoutes.Project.ProjectsUrl;
         
 
-        private IApiService ToggleSrv { get; set; }
+        private IApiService TogglSrv { get; set; }
 
 
         public ProjectService(string apiKey)
@@ -25,7 +25,7 @@ namespace Toggl.Services
 
 		public ProjectService(IApiService srv)
         {
-            ToggleSrv = srv;
+            TogglSrv = srv;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Toggl.Services
         public List<Project> List()
         {
             var lstProj = new List<Project>();
-            var lstWrkSpc = ToggleSrv.Get(ApiRoutes.Workspace.ListWorkspaceUrl).GetData<List<Workspace>>();
+            var lstWrkSpc = TogglSrv.Get(ApiRoutes.Workspace.ListWorkspaceUrl).GetData<List<Workspace>>();
             lstWrkSpc.ForEach(e =>
                 {
                     var projs = ForWorkspace(e.Id.Value);
@@ -48,7 +48,7 @@ namespace Toggl.Services
         public List<Project> ForWorkspace (int id)
         {
             var url = string.Format(ApiRoutes.Workspace.ListWorkspaceProjectsUrl, id);
-            return ToggleSrv.Get(url).GetData<List<Project>>();
+            return TogglSrv.Get(url).GetData<List<Project>>();
         }
 
 	    public List<Project> ForClient(Client client)
@@ -62,7 +62,7 @@ namespace Toggl.Services
         public List<Project> ForClient(int id)
         {
             var url = string.Format(ApiRoutes.Client.ClientProjectsUrl, id);
-            return ToggleSrv.Get(url).GetData<List<Project>>();
+            return TogglSrv.Get(url).GetData<List<Project>>();
         }
 
         public Project Get(int id)
@@ -73,13 +73,13 @@ namespace Toggl.Services
         public Project Add(Project project)
         {
 
-            return ToggleSrv.Post(ProjectsUrl, project.ToJson()).GetData<Project>();
+            return TogglSrv.Post(ProjectsUrl, project.ToJson()).GetData<Project>();
         }
 
 	    public bool Delete(int id)
 	    {
 		    var url = string.Format(ApiRoutes.Project.DetailUrl, id);
-		    var rsp = ToggleSrv.Delete(url);
+		    var rsp = TogglSrv.Delete(url);
 
 		    return rsp.StatusCode == HttpStatusCode.OK;
 	    }
@@ -100,7 +100,7 @@ namespace Toggl.Services
 				ApiRoutes.Project.ProjectsBulkDeleteUrl,
 				string.Join(",", ids.Select(id => id.ToString()).ToArray()));
 
-			var rsp = ToggleSrv.Delete(url);
+			var rsp = TogglSrv.Delete(url);
 
 			return rsp.StatusCode == HttpStatusCode.OK;
 		}    

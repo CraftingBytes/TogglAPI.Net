@@ -10,12 +10,12 @@ namespace Toggl.Services
 {
     public class DashboardService : IDashboardService
     {
-        public IApiService ToggleSrv { get; set; }
+        public IApiService TogglSrv { get; set; }
 
         public Dashboard Get(int workspaceID)
         {
             var url = string.Format(ApiRoutes.Dashboard.DashboardUrl, workspaceID);
-            var dashboard = ToggleSrv.Get<Dashboard>(url);
+            var dashboard = TogglSrv.Get<Dashboard>(url);
 
             return dashboard;
         }
@@ -28,7 +28,7 @@ namespace Toggl.Services
 
         public DashboardService(IApiService srv)
         {
-            ToggleSrv = srv;
+            TogglSrv = srv;
         }
     }
 }
